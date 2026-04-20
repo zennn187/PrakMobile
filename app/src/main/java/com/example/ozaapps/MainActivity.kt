@@ -2,40 +2,48 @@ package com.example.ozaapps
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
+import android.widget.Button
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.example.ozaapps.Pertemuan_4.FourthActivity
 import com.example.ozaapps.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityMainBinding
+    private lateinit var btnLogout: Button
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         enableEdgeToEdge()
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
-//        val btnButton : Button = findViewById(R.id.btnButton)
+
+        val sharedPref = getSharedPreferences("user_pref", MODE_PRIVATE)
 
 
-        binding.btnButton.setOnClickListener {
+        btnLogout = binding.btnLogout
 
-            val intent = Intent(this, FourthActivity::class.java)
+        btnLogout.setOnClickListener {
+            AlertDialog.Builder(this)
+                .setTitle("Konfirmasi Logout")
+                .setMessage("Apakah Anda yakin ingin logout?")
+                .setPositiveButton("Ya") { _, _ ->
+                    val sharedPref = getSharedPreferences("user_pref", MODE_PRIVATE)
+                    val editor = sharedPref.edit()
+                    editor.putBoolean("isLogin", false)
+                    editor.apply()
 
-            /*tambahkan bagian berikut*/
-            intent.putExtra("nama", "Politeknik Caltex Riau")
-            intent.putExtra("asal", "Rumbai")
-            intent.putExtra("umur", 25)
-
-            startActivity(intent)
-            finish()
+                    val intent = Intent(this, AuthActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
+                .setNegativeButton("Tidak") { dialog, _ ->
+                    dialog.dismiss()
+                }
+                .show()
         }
     }
 }
