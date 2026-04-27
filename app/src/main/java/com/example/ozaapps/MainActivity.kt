@@ -6,7 +6,7 @@ import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import com.example.ozaapps.Pertemuan_4.FourthActivity
+import com.example.ozaapps.Home.Pertemuan7.SevenActivity
 import com.example.ozaapps.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -24,6 +24,10 @@ class MainActivity : AppCompatActivity() {
         val sharedPref = getSharedPreferences("user_pref", MODE_PRIVATE)
 
 
+// Pertemuan 7
+        findViewById<Button>(R.id.btnPertemuan7).setOnClickListener {
+            startActivity(Intent(this, SevenActivity::class.java))
+        }
         btnLogout = binding.btnLogout
 
         btnLogout.setOnClickListener {
@@ -36,9 +40,10 @@ class MainActivity : AppCompatActivity() {
                     editor.putBoolean("isLogin", false)
                     editor.apply()
 
-                    val intent = Intent(this, AuthActivity::class.java)
+                    val intent = Intent(this, SevenActivity::class.java)
                     startActivity(intent)
                     finish()
+
                 }
                 .setNegativeButton("Tidak") { dialog, _ ->
                     dialog.dismiss()
