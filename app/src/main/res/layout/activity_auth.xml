@@ -17,25 +17,25 @@
 
     <EditText
         android:id="@+id/etUsername"
-        android:layout_width="281dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:hint="Username"
         android:inputType="text"
-        android:padding="10dp" />
+        android:padding="12dp" />
 
     <EditText
         android:id="@+id/etPassword"
-        android:layout_width="285dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
         android:hint="Password"
         android:inputType="textPassword"
-        android:padding="10dp" />
+        android:padding="12dp" />
 
     <Button
         android:id="@+id/btnLogin"
-        android:layout_width="160dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="12dp"
         android:text="Login" />
