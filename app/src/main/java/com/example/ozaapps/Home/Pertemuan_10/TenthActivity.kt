@@ -55,7 +55,18 @@ class TenthActivity : AppCompatActivity() {
                     badge.isVisible = true
                     badge.number = 5
                 }
+                2 -> {
+                    tab.text = "Produk"
+                    //Tambah Icon
+                    tab.icon = ContextCompat.getDrawable(  this, R.drawable.ic_home)
+                    //Tambah Badge Tanpa nomor (hanya titik)
+                    val badge = tab.getOrCreateBadge()
+                    badge.isVisible = true
+                }
             }
             }.attach()
+        binding.imgProfile.setOnClickListener {
+            finish() // Menutup TenthActivity dan otomatis kembali ke HomeFragment
+        }
     }
 }
