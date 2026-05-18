@@ -4,48 +4,30 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import com.bumptech.glide.Glide
-import com.example.ozaapps.databinding.ItemMessageBinding
-import com.google.android.material.snackbar.Snackbar
+import android.widget.BaseAdapter
+import android.widget.TextView
+import com.example.ozaapps.R
 
 class MessageAdapter(
-    context: Context,
-    private val messages: List<MessageModel>
-) : ArrayAdapter<MessageModel>(context, 0, messages) {
+    private val context: Context,
+    private val list: List<MessageModel>
+) : BaseAdapter() {
 
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+    override fun getCount(): Int = list.size
 
-        val binding: ItemMessageBinding
-        val view: View
+    override fun getItem(position: Int): Any = list[position]
 
-        if (convertView == null) {
-            binding = ItemMessageBinding.inflate(LayoutInflater.from(context), parent, false)
-            view = binding.root
-            view.tag = binding
-        } else {
-            view = convertView
-            binding = view.tag as ItemMessageBinding
-        }
+    override fun getItemId(position: Int): Long = position.toLong()
 
-        val data = messages[position]
+    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
+        val view: View = convertView ?: LayoutInflater.from(context).inflate(R.layout.item_message, parent, false)
 
-        // 🔥 Glide + binding data
-        Glide.with(context)
-            .load(data.avatarUrl)
-            .into(binding.avatarImg)
+        val tvName = view.findViewById<TextView>(R.id.tvName)
+        val tvMessage = view.findViewById<TextView>(R.id.tvMessage)
 
-        binding.textSender.text = data.senderName
-        binding.textMessage.text = data.messageText
-
-        // 🔥 CLICK LISTENER + SNACKBAR
-        view.setOnClickListener {
-            Snackbar.make(
-                parent,
-                "Pesan dari ${data.senderName}: ${data.messageText}",
-                Snackbar.LENGTH_SHORT
-            ).show()
-        }
+        val item = list[position]
+        tvName.text = item.name
+        tvMessage.text = item.message
 
         return view
     }

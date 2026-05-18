@@ -15,7 +15,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Manajemen Profil"
+            android:text="Manajemen Profile UMKM"
             android:textSize="24sp"
             android:textColor="#212121"
             android:textStyle="bold"
@@ -50,6 +50,19 @@
             app:cornerRadius="12dp"
             android:backgroundTint="#6200EE"
             app:elevation="4dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnWebView"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="8dp"
+            android:backgroundTint="#6200EE"
+            android:text="BUKA DASHBOARD UMKM"
+            android:textStyle="bold"
+            app:cornerRadius="12dp"
+            app:elevation="4dp"
+            app:icon="@android:drawable/ic_menu_search"
+            app:iconGravity="textStart" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -111,19 +124,17 @@
                 android:layout_margin="6dp"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="4dp">
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/bg_rounded_gradient"
-                    android:gravity="center"
-                    android:orientation="vertical">
+                    android:background="#6200EE"
+                    android:gravity="center">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Tentang Kami"
-                        android:textStyle="bold"
-                        android:textColor="@android:color/white" />
+                        android:textColor="@android:color/white"
+                        android:textStyle="bold" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -134,19 +145,17 @@
                 android:layout_margin="6dp"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="4dp">
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/bg_rounded_gradient"
-                    android:gravity="center"
-                    android:orientation="vertical">
+                    android:background="#6200EE"
+                    android:gravity="center">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Pengaturan"
-                        android:textStyle="bold"
-                        android:textColor="@android:color/white" />
+                        android:textColor="@android:color/white"
+                        android:textStyle="bold" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
         </GridLayout>
@@ -163,16 +172,24 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="20dp"
             app:cardCornerRadius="12dp">
-
             <ListView
                 android:id="@+id/listViewMore"
                 android:layout_width="match_parent"
-                android:layout_height="280dp"
+                android:layout_height="200dp"
                 android:divider="#EEEEEE"
                 android:dividerHeight="1dp" />
         </androidx.cardview.widget.CardView>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnBack"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:text="KEMBALI KE HOME"
+            android:textColor="#757575" />
 
     </LinearLayout>
 </ScrollView>

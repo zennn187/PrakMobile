@@ -1,5 +1,7 @@
 package com.example.ozaapps.Home.Pertemuan_9
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.ListView
@@ -17,11 +19,15 @@ class NinthActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ninth)
 
+        // Inisialisasi View
         val etName = findViewById<TextInputEditText>(R.id.etName)
         val btnSubmit = findViewById<MaterialButton>(R.id.btnSubmit)
+        val btnWebView = findViewById<MaterialButton>(R.id.btnWebView)
+        val btnBack = findViewById<MaterialButton>(R.id.btnBack)
         val chipGroup = findViewById<ChipGroup>(R.id.chipGroup)
         val listView = findViewById<ListView>(R.id.listViewMore)
 
+        // 1. Logika Tombol Simpan
         btnSubmit.setOnClickListener {
             val name = etName.text.toString()
             if (name.isNotEmpty()) {
@@ -29,6 +35,17 @@ class NinthActivity : AppCompatActivity() {
             } else {
                 etName.error = "Input nama dulu!"
             }
+        }
+
+        btnWebView.setOnClickListener {
+            val url = "https://oza-umkm.alwaysdata.net/dashboard"
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.data = Uri.parse(url)
+            startActivity(intent)
+        }
+
+        btnBack.setOnClickListener {
+            finish()
         }
 
         chipGroup.setOnCheckedChangeListener { group, checkedId ->

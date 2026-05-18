@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.ozaapps.Home.Pertemuan_10.TenthActivity
 import com.example.ozaapps.Home.Pertemuan_9.NinthActivity
 import com.example.ozaapps.databinding.FragmentHomeBinding
 
@@ -28,6 +29,13 @@ class HomeFragment : Fragment() {
         binding.btn9.setOnClickListener {
             startActivity(
                 Intent(requireContext(), NinthActivity::class.java)
+            )
+
+
+        }
+        binding.btn10.setOnClickListener {
+            startActivity(
+                Intent(requireContext(), TenthActivity::class.java)
             )
         }
     }
