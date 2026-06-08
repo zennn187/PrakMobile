@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.example.ozaapps.Data.API.CatFactApiClient
+import com.example.ozaapps.Home.Pertemuan13.ThirteenthActivity
 import com.example.ozaapps.Home.Pertemuan_10.TenthActivity
 import com.example.ozaapps.Home.Pertemuan_9.NinthActivity
 import com.example.ozaapps.databinding.FragmentHomeBinding
@@ -38,6 +39,12 @@ class HomeFragment : Fragment() {
         binding.btn10.setOnClickListener {
             startActivity(
                 Intent(requireContext(), TenthActivity::class.java)
+            )
+        }
+
+        binding.btn13.setOnClickListener {
+            startActivity(
+                Intent(requireContext(), ThirteenthActivity::class.java)
             )
         }
 
