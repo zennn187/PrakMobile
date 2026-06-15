@@ -8,14 +8,16 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import com.example.ozaapps.databinding.FragmentTabCaptureBinding
+import com.example.ozaapps.utils.NotificationHelper
+import com.example.ozaapps.utils.PermissionHelper
 
 class TabCaptureFragment : Fragment() {
     private var _binding: FragmentTabCaptureBinding? = null
@@ -23,11 +25,21 @@ class TabCaptureFragment : Fragment() {
 
     private var currentPhotoUri: Uri? = null
 
+    private val notificationPermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+            if (isGranted) {
+                Toast.makeText(context, "Izin notifikasi aktif", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(context, "Izin notifikasi ditolak", Toast.LENGTH_SHORT).show()
+            }
+        }
+
     private val cameraLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
             currentPhotoUri?.let { uri ->
                 binding.ivCapturedImage.setImageURI(uri)
                 context?.sendBroadcast(Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, uri))
+                triggerCaptureNotification()
             }
         }
     }
@@ -51,11 +63,18 @@ class TabCaptureFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        checkNotificationPermission()
+
         binding.btnCapture.setOnClickListener {
-            if (hasCameraPermission()) {
-                openCamera()
+            if (!PermissionHelper.hasPermission(
+                    requireActivity(),
+                    Manifest.permission.CAMERA)) {
+                PermissionHelper.requestPermission(
+                    permissionLauncher,
+                    Manifest.permission.CAMERA
+                )
             } else {
-                permissionLauncher.launch(Manifest.permission.CAMERA)
+                openCamera()
             }
         }
     }
@@ -84,6 +103,32 @@ class TabCaptureFragment : Fragment() {
         }
         return requireContext().contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
             ?: throw RuntimeException("Gagal membuat URI MediaStore")
+    }
+
+    private fun checkNotificationPermission() {
+        if (PermissionHelper.isNotificationPermissionRequired()) {
+            val permission = Manifest.permission.POST_NOTIFICATIONS
+            if (!PermissionHelper.hasPermission(requireContext(), permission)) {
+                PermissionHelper.requestPermission(
+                    notificationPermissionLauncher,
+                    permission
+                )
+            }
+        }
+    }
+
+    private fun triggerCaptureNotification() {
+        val intent = Intent(Intent.ACTION_VIEW).apply {
+            setDataAndType(currentPhotoUri, "image/jpeg")
+            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        }
+
+        NotificationHelper.showNotification(
+            requireContext(),
+            "Foto Berhasil Disimpan",
+            "Gambar baru telah berhasil diambil dan disimpan ke galeri.",
+            intent
+        )
     }
 
     override fun onDestroyView() {

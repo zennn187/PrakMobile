@@ -10,6 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import com.example.ozaapps.Data.API.CatFactApiClient
 import com.example.ozaapps.Home.Pertemuan13.ThirteenthActivity
 import com.example.ozaapps.Home.Pertemuan_10.TenthActivity
+import com.example.ozaapps.Home.Pertemuan_3.ThirdActivity
 import com.example.ozaapps.Home.Pertemuan_9.NinthActivity
 import com.example.ozaapps.databinding.FragmentHomeBinding
 import kotlinx.coroutines.launch
@@ -29,6 +30,14 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // Tombol Navigasi ke Pertemuan 3
+        // Catatan: Ganti 'btn3' sesuai ID tombol Pertemuan 3 pada file fragment_home.xml Anda
+        binding.btn3.setOnClickListener {
+            startActivity(
+                Intent(requireContext(), ThirdActivity::class.java)
+            )
+        }
 
         binding.btn9.setOnClickListener {
             startActivity(

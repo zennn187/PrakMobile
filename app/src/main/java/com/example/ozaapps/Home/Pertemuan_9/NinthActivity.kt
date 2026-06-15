@@ -8,6 +8,7 @@ import android.widget.ListView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.ozaapps.R
+import com.example.ozaapps.utils.NotificationHelper
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
@@ -19,7 +20,6 @@ class NinthActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ninth)
 
-        // Inisialisasi View
         val etName = findViewById<TextInputEditText>(R.id.etName)
         val btnSubmit = findViewById<MaterialButton>(R.id.btnSubmit)
         val btnWebView = findViewById<MaterialButton>(R.id.btnWebView)
@@ -27,11 +27,18 @@ class NinthActivity : AppCompatActivity() {
         val chipGroup = findViewById<ChipGroup>(R.id.chipGroup)
         val listView = findViewById<ListView>(R.id.listViewMore)
 
-        // 1. Logika Tombol Simpan
         btnSubmit.setOnClickListener {
             val name = etName.text.toString()
             if (name.isNotEmpty()) {
                 Toast.makeText(this, "Data $name tersimpan!", Toast.LENGTH_SHORT).show()
+
+                val intent = Intent(this, NinthActivity::class.java)
+                NotificationHelper.showNotification(
+                    this,
+                    "Data Tersimpan",
+                    "Halo $name, data Anda berhasil disimpan di Pertemuan 9!",
+                    intent
+                )
             } else {
                 etName.error = "Input nama dulu!"
             }
