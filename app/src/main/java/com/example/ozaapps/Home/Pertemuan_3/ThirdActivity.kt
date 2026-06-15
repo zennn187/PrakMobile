@@ -39,7 +39,6 @@ class ThirdActivity : AppCompatActivity() {
             insets
         }
 
-        // Cek dan minta izin notifikasi jika diperlukan
         if (PermissionHelper.isNotificationPermissionRequired()) {
             val permission = Manifest.permission.POST_NOTIFICATIONS
             if (!PermissionHelper.hasPermission(this, permission)) {
